@@ -10,4 +10,5 @@ public class ProvaJava0804Application {
 		SpringApplication.run(ProvaJava0804Application.class, args);
 	}
 
+
 }

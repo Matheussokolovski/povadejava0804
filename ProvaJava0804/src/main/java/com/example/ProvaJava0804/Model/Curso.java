@@ -1,29 +1,40 @@
 package com.example.ProvaJava0804.Model;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+@Data
 @Entity
 @Getter
 @Setter
-@Table(name = "curso_id")
+@Table(name = "curso")
 public class Curso {
+
     @Id
- @GeneratedValue( strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(length = 75, nullable = false)
+    private String nome;
 
-    private String Nome;
+    private int cargaHoraria
+    private LocalDate dataInicio;
 
-    private int CargaHoraria ;
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
+    private List<Diciplina> disciplinas = new ArrayList<>();
 
-    private LocalDate Data;
+    public void addDisciplina(Diciplina d) {
+        d.setCurso(this);
+        this.disciplinas.add(d);
+    }
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "curso_id", referencedColumnName = "") // Foreign key in Employee table
-    private Set<Employee> employees; // Um curso pode ter várias diciplinas
-
-
-
+    public void removeDisciplina(Diciplina d) {
+        this.disciplinas.remove(d);
+        d.setCurso(null);
+    }
 }

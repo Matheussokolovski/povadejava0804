@@ -1,28 +1,30 @@
 package com.example.ProvaJava0804.Controller;
-
 import com.example.ProvaJava0804.Model.Curso;
-import com.example.ProvaJava0804.Repository.CursoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.ProvaJava0804.Service.CursoService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-
+@RequestMapping("/cursos")
 public class CursoController {
-    @Autowired
-    private Curso cursoRepository;
 
-    /// criar curso
+    private final CursoService cursoService;
+
+    public CursoController(CursoService cursoService) {
+        this.cursoService = cursoService;
+    }
+
+
+
     @PostMapping
-    public Curso createCurso(@RequestBody Curso curso) {;
-        return curso;
+    public Curso salvar(@RequestBody Curso curso) {
+        return cursoService.salvar(curso);
     }
-/// Delete
-    @DeleteMapping("/curso/{id}")
+
+    @DeleteMapping("/{id}")
     public void deleteCurso(@PathVariable Long id) {
-
+        cursoService.deletar(id);
+    }
 
 
     }
-}
+

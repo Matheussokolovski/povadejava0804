@@ -4,23 +4,24 @@ import com.example.ProvaJava0804.Model.Curso;
 import com.example.ProvaJava0804.Repository.CursoRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+
 @Service
 public class CursoService {
 
-    private final CursoService CursoService;
+    private final CursoRepository cursoRepository;
 
-    public CursoService(CursoService cursoService, CursoService cursoService1) {
-        CursoService = cursoService1;
-
+    public CursoService(CursoRepository cursoRepository) {
+        this.cursoRepository = cursoRepository;
     }
 
-    //cria
-    //public Curso save(Curso curso) {
-       // Curso save = CursoRepository.save(curso);
-       // return save;
 
-   // }
+    public Curso salvar(Curso curso) {
+        return cursoRepository.save(curso);
+    }
 
 
+
+    public void deletar(Long id) {
+        cursoRepository.deleteById(id);
+    }
 }
